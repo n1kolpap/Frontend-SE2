@@ -1,0 +1,139 @@
+.daily-plan-container {
+  max-width: 430px;
+  margin: 0 auto;
+  background: #F6F6F6;
+  min-height: 100vh;
+  padding-bottom: 120px;
+}
+
+.daily-plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.back-btn,
+.share-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.daily-plan-header h1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007BFF;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  padding: 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid #EFEFEF;
+  margin-bottom: 12px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #A0A0A0;
+  cursor: pointer;
+  padding-bottom: 8px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  color: #1A1A1A;
+  border-bottom-color: #FF8A00;
+}
+
+.daily-plan-content {
+  padding: 16px;
+}
+
+.day-card {
+  margin-bottom: 16px;
+}
+
+.day-date {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1A1A1A;
+  margin: 0 0 12px 0;
+}
+
+.activity-input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.activity-input-group .input-field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.btn-add-activity {
+  background: #007BFF;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.activity {
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #EFEFEF;
+  border-radius: 12px;
+}
+
+.activity button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.fabs {
+  position: fixed;
+  bottom: 100px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fab {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  margin-bottom: 12px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.fab.orange-blue {
+  background: linear-gradient(45deg, #FF8A00, #0078FF);
+  color: #FFFFFF;
+}
+
+.fab.black {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.fab.blue {
+  background: #0078FF;
+  color: #FFFFFF;
+}
