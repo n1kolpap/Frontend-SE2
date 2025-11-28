@@ -1,48 +1,77 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import Input from '../components/Input';
-import Button from '../components/Button';
 import './Login.css';
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const { login, loading } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const { login } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await login(credentials);
-    } catch (err) {
-      alert(err.message);
+    setError('');
+    setLoading(true);
+
+    const result = await login(username, password);
+    
+    setLoading(false);
+
+    if (!result.success) {
+      setError(result.message || 'Login failed. Please try again.');
     }
   };
 
+  const handleSignUp = () => {
+    history.push('/signup');
+  };
+
+  const handleForgotPassword = () => {
+    alert('Forgot password clicked');
+  };
+
   return (
-    <div className="login">
-      <h1>TripTrail</h1>
-      <p>Unlock the world</p>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={credentials.email}
-          onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={credentials.password}
-          onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-          required
-        />
-        <Button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Log In'}
-        </Button>
-      </form>
-      <Link to="/signup">Sign Up</Link>
-      <Link to="#">Forgot password?</Link>
+    <div className="login-container">
+      <div className="login-content">
+        <div className="login-logo">TripTrail</div>
+        
+        <form className="login-form" onSubmit={handleLogin}>
+          {error && <div className="error-message">{error}</div>}
+          
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="login-input"
+            required
+            disabled={loading}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="login-input"
+            required
+            disabled={loading}
+          />
+          <button 
+            type="submit" 
+            className="btn-login"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+
+        <button onClick={handleSignUp} className="btn-signup">Sign Up</button>
+
+        <button onClick={handleForgotPassword} className="btn-forgot">Forgot password?</button>
+      </div>
     </div>
   );
 };

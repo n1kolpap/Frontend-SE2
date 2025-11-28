@@ -1,63 +1,39 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useAuth } from './AuthContext';
-import client from '../api/client';
+import React, { createContext, useState } from 'react';
 
-const TripContext = createContext();
+export const TripContext = createContext();
 
 export const TripProvider = ({ children }) => {
-  const { user } = useAuth();
   const [trips, setTrips] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [currentTrip, setCurrentTrip] = useState(null);
 
-  useEffect(() => {
-    if (user) fetchTrips();
-  }, [user]);
-
-  const fetchTrips = async () => {
-    setLoading(true);
-    try {
-      const response = await client.get(`/user/${user.id}/tripPlan`);  // Path: /api/user/:userId/tripPlan
-      setTrips(response.data.data || []);  // Response: { success: true, data: [...] }
-    } catch (error) {
-      console.error('Failed to fetch trips');
-    } finally {
-      setLoading(false);
-    }
+  const createTrip = (tripData) => {
+    const newTrip = { id: Date.now(), ...tripData, dailyPlan: [] };
+    setTrips([...trips, newTrip]);
+    setCurrentTrip(newTrip);
+    return newTrip.id;
   };
 
-  const addTrip = async (tripData) => {
-    try {
-      const response = await client.post(`/user/${user.id}/tripPlan`, tripData);  // Path: /api/user/:userId/tripPlan
-      const newTrip = response.data.data;  // Response: { success: true, data: trip }
-      setTrips([...trips, newTrip]);
-    } catch (error) {
-      console.error('Failed to add trip');
-    }
+  const updateTrip = (tripId, tripData) => {
+    setTrips(trips.map(t => t.id === tripId ? { ...t, ...tripData } : t));
   };
 
-  const updateTrip = async (tripId, updates) => {
-    try {
-      const response = await client.put(`/user/${user.id}/tripPlan/${tripId}`, updates);  // Path: /api/user/:userId/tripPlan/:tripId
-      setTrips(trips.map(t => t.id === tripId ? response.data.data : t));  // Response: { success: true, data: trip }
-    } catch (error) {
-      console.error('Failed to update trip');
-    }
+  const addActivity = (tripId, date, activity) => {
+    setTrips(trips.map(t => t.id === tripId ? {
+      ...t,
+      dailyPlan: t.dailyPlan.map(d => d.date === date ? { ...d, activities: [...d.activities, { ...activity, id: Date.now() }] } : d)
+    } : t));
   };
 
-  const deleteTrip = async (tripId) => {
-    try {
-      await client.delete(`/user/${user.id}/tripPlan/${tripId}`);  // Path: /api/user/:userId/tripPlan/:tripId
-      setTrips(trips.filter(t => t.id !== tripId));
-    } catch (error) {
-      console.error('Failed to delete trip');
-    }
+  const deleteActivity = (tripId, date, activityId) => {
+    setTrips(trips.map(t => t.id === tripId ? {
+      ...t,
+      dailyPlan: t.dailyPlan.map(d => d.date === date ? { ...d, activities: d.activities.filter(a => a.id !== activityId) } : d)
+    } : t));
   };
 
   return (
-    <TripContext.Provider value={{ trips, loading, fetchTrips, addTrip, updateTrip, deleteTrip }}>
+    <TripContext.Provider value={{ trips, currentTrip, createTrip, updateTrip, addActivity, deleteActivity, setCurrentTrip }}>
       {children}
     </TripContext.Provider>
   );
 };
-
-export const useTrips = () => useContext(TripContext);

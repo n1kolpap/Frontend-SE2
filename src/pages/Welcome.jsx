@@ -1,16 +1,21 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '../components/Button';
 import './Welcome.css';
 
 const Welcome = () => {
   const history = useHistory();
 
+  const handleWelcome = () => {
+    history.push('/login');
+  };
+
   return (
-    <div className="welcome">
-      <h1>TripTrail</h1>
-      <p>Unlock the world</p>
-      <Button onClick={() => history.push('/login')}>Welcome</Button>
+    <div className="welcome-container">
+      <div className="welcome-content">
+        <div className="welcome-logo">TripTrail</div>
+        <p className="welcome-subtitle">Unlock the world</p>
+      </div>
+      <button onClick={handleWelcome} className="btn-welcome">Welcome</button>
     </div>
   );
 };

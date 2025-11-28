@@ -1,8 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';  // Changed from 'react-dom/client'
+import ReactDOM from 'react-dom';
+import './index.css';
 import App from './App';
 
-ReactDOM.render(  // Changed from createRoot
+ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

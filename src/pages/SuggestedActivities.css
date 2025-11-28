@@ -102,37 +102,3 @@
   font-size: 16px;
   z-index: 1000;
 }
-
-.suggested-activities {
-  padding: 20px;
-  background-color: white;
-  min-height: 100vh;
-}
-
-.near-you, .highly-rated {
-  margin-bottom: 30px;
-}
-
-.near-you h2, .highly-rated h2 {
-  margin-bottom: 15px;
-}
-
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.card {
-  background-color: #F8F9FA;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.card h3 {
-  margin: 0 0 5px 0;
-}
-
-.card p {
-  margin: 5px 0 10px 0;
-}

@@ -1,44 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { AuthProvider } from '../context/AuthContext';
-import { TripProvider } from '../context/TripContext';
-import Welcome from '../pages/Welcome';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 import Login from '../pages/Login';
-import Signup from '../pages/SignUp';
-import Home from '../pages/Home';
-import CreateTrip from '../pages/CreateTrip';
-import TripOverview from '../pages/TripOverview';
-import TripDailyPlan from '../pages/TripDailyPlan';
-import SuggestedActivities from '../pages/SuggestedActivities';
+import SignUp from '../pages/SignUp';
+import Dashboard from '../pages/Dashboard';
+import TripForm from '../components/TripForm';
+import DailyPlanView from '../components/DailyPlanView';
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem('token');
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Route
       {...rest}
-      render={(props) => (token ? <Component {...props} /> : <Redirect to="/login" />)}
+      render={(props) =>
+        user ? <Component {...props} /> : <Redirect to="/login" />
+      }
     />
   );
 };
 
-const AppRouter = () => (
-  <AuthProvider>
-    <TripProvider>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/welcome" component={Welcome} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <ProtectedRoute path="/home" component={Home} />
-          <ProtectedRoute path="/trip/create" component={CreateTrip} />
-          <ProtectedRoute path="/trip/:tripId" component={TripOverview} />
-          <ProtectedRoute path="/trip/:tripId/daily" component={TripDailyPlan} />
-          <ProtectedRoute path="/trip/:tripId/activities" component={SuggestedActivities} />
-        </Switch>
-      </Router>
-    </TripProvider>
-  </AuthProvider>
-);
+const AppRouter = () => {
+  return (
+    <Switch>
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={SignUp} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/create-trip" component={TripForm} />
+      <PrivateRoute exact path="/trip/:tripId/daily/:date" component={DailyPlanView} />
+      <Route exact path="/">
+        <Redirect to="/dashboard" />
+      </Route>
+    </Switch>
+  );
+};
 
 export default AppRouter;

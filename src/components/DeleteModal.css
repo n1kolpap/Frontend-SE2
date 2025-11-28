@@ -4,45 +4,125 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1100;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
+.modal-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
   max-width: 300px;
-  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 0.3s ease-out;
 }
 
-.modal-content p {
-  margin-bottom: 20px;
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1A1A1A;
+  margin: 0 0 8px 0;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 20px 0;
 }
 
 .modal-buttons {
   display: flex;
-  justify-content: space-around;
+  gap: 12px;
 }
 
-.cancel-button, .confirm-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
+.btn-modal-cancel {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
+  color: #666;
 }
 
-.cancel-button {
-  background-color: #6c757d;
-  color: white;
+.modal-buttons .btn-primary {
+  flex: 1;
+  margin: 0;
 }
 
-.confirm-button {
-  background-color: #dc3545;
-  color: white;
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.delete-modal-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.delete-modal-card h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+.delete-modal-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-cancel {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #6A6A6A;
+}
+
+.btn-confirm {
+  flex: 1;
+  background: #FF8A00;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }

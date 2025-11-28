@@ -1,61 +1,108 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import './SignUp.css';  // Changed to SignUp.css
+import './SignUp.css';
 
-const Signup = () => {
-  const [userData, setUserData] = useState({ username: '', email: '', password: '' });
-  const { signup, loading } = useAuth();
+const SignUp = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
+  const { signup } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    try {
-      await signup(userData);
-    } catch (err) {
-      setError(err.message);
+    setError('');
+
+    if (!username || !email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
+    const result = await signup(username, password, email);
+    setLoading(false);
+
+    if (result.success) {
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        history.push('/login');
+      }, 2000);
+    } else {
+      setError(result.message || 'Signup failed. Please try again.');
     }
   };
 
+  const handleLogin = () => {
+    history.push('/login');
+  };
+
   return (
-    <div className="signup-page">
-      <div className="logo-section">
-        <h1>TripTrail</h1>
-        <h2>Unlock the world</h2>
+    <div className="signup-container">
+      <div className="signup-content">
+        <div className="signup-logo">TripTrail</div>
+        
+        <form className="signup-form" onSubmit={handleSignUp}>
+          {error && <div className="error-message">{error}</div>}
+          
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="signup-input"
+            required
+            disabled={loading}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="signup-input"
+            required
+            disabled={loading}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="signup-input"
+            required
+            disabled={loading}
+          />
+          <button 
+            type="submit" 
+            className="btn-signup"
+            disabled={loading}
+          >
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </button>
+        </form>
+
+        <button onClick={handleLogin} className="btn-login">Log In</button>
       </div>
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={userData.username}
-          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
-          required
-          className="input-field"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={userData.email}
-          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-          required
-          className="input-field"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={userData.password}
-          onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-          required
-          className="input-field"
-        />
-        <button type="submit" disabled={loading} className="signup-button">
-          {loading ? 'Signing up...' : 'Sign Up'}
-        </button>
-        {error && <p className="error-message">{error}</p>}
-      </form>
-      <Link to="/login" className="login-link">Log In</Link>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-card">
+            <h2>Success!</h2>
+            <p>Your account has been created.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;
