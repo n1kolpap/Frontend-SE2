@@ -1,71 +1,68 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTrips } from '../context/TripContext';
+import Input from '../components/Input';
+import Button from '../components/Button';
 import './CreateTrip.css';
 
 const CreateTrip = () => {
   const history = useHistory();
+  const { addTrip } = useTrips();
   const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [fillActivities, setFillActivities] = useState(false);
+  const [fillWithActivities, setFillWithActivities] = useState(false);
 
-  const handleClose = () => {
-    history.push('/dashboard');
-  };
-
-  const handleStartPlanning = () => {
-    // Mock navigation to daily plan
-    history.push('/trip/1/daily-plan');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const trip = {
+      id: crypto.randomUUID(),
+      destination,
+      startDate,
+      endDate,
+      autoActivities: fillWithActivities
+    };
+    addTrip(trip);
+    history.push('/home');
   };
 
   return (
-    <div className="create-trip-container">
-      <div className="create-trip-header">
-        <button className="close-btn" onClick={handleClose}>✕</button>
-        <h1 className="create-trip-title">Plan a new trip</h1>
-      </div>
-
-      <div className="create-trip-form">
-        <input
-          type="text"
+    <div className="create-trip">
+      <button className="close" onClick={() => history.push('/home')}>X</button>
+      <h1>Plan a new trip</h1>
+      <form onSubmit={handleSubmit}>
+        <Input
           placeholder="Where to?"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
-          className="input-field"
+          required
         />
-
-        <div className="date-row">
-          <input
+        <div className="dates">
+          <Input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="input-field date-input"
           />
-          <input
+          <Input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-            className="input-field date-input"
           />
         </div>
-
-        <button className="collaborator-btn">
-          ➕ Add collaborator
-        </button>
-
-        <label className="checkbox-label">
+        <div className="collaborator">
+          <span>Invite a collaborator</span>
+          <button type="button">+</button>
+        </div>
+        <label>
           <input
             type="checkbox"
-            checked={fillActivities}
-            onChange={(e) => setFillActivities(e.target.checked)}
+            checked={fillWithActivities}
+            onChange={(e) => setFillWithActivities(e.target.checked)}
           />
           Fill plan with activities
         </label>
-
-        <button onClick={handleStartPlanning} className="start-planning-btn">
-          Start planning
-        </button>
-      </div>
+        <Button>Start planning</Button>
+      </form>
     </div>
   );
 };

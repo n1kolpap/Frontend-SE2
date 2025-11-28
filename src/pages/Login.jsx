@@ -1,52 +1,48 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import Input from '../components/Input';
+import Button from '../components/Button';
 import './Login.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const history = useHistory();
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const { login, loading } = useAuth();
 
-  const handleLogin = () => {
-    history.push('/dashboard');
-  };
-
-  const handleSignUp = () => {
-    history.push('/signup');
-  };
-
-  const handleForgotPassword = () => {
-    // Placeholder for forgot password
-    alert('Forgot password clicked');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(credentials);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-content">
-        <div className="login-logo">TripTrail</div>
-        
-        <form className="login-form">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="login-input"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="login-input"
-          />
-          <button type="button" onClick={handleLogin} className="btn-login">Log In</button>
-        </form>
-
-        <button onClick={handleSignUp} className="btn-signup">Sign Up</button>
-
-        <button onClick={handleForgotPassword} className="btn-forgot">Forgot password?</button>
-      </div>
+    <div className="login">
+      <h1>TripTrail</h1>
+      <p>Unlock the world</p>
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="email"
+          placeholder="Email"
+          value={credentials.email}
+          onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={credentials.password}
+          onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+          required
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Log In'}
+        </Button>
+      </form>
+      <Link to="/signup">Sign Up</Link>
+      <Link to="#">Forgot password?</Link>
     </div>
   );
 };

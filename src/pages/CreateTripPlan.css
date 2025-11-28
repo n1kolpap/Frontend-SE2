@@ -1,0 +1,100 @@
+.create-trip-container {
+  padding: 20px;
+  background-color: white;
+  min-height: 100vh;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.create-trip-container h1 {
+  text-align: center;
+  margin: 40px 0 20px 0;
+  font-size: 1.5rem;
+}
+
+.create-trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input-field {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.date-row {
+  display: flex;
+  gap: 10px;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.collaborator-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+}
+
+.start-button {
+  background-color: #ff8a00;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.start-button:hover {
+  background-color: #e67a00;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .create-trip-container {
+    padding: 40px;
+  }
+
+  .create-trip-form {
+    max-width: 500px;
+  }
+}

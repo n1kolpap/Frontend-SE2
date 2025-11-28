@@ -1,0 +1,42 @@
+.fab-container {
+  position: fixed;
+  bottom: 80px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 900;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.fab:hover {
+  transform: scale(1.1);
+}
+
+.fab-edit {
+  background: #FF8A00;
+  color: #FFFFFF;
+}
+
+.fab-location {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.fab-add {
+  background: #007BFF;
+  color: #FFFFFF;
+}

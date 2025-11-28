@@ -1,63 +1,63 @@
-import React, { createContext, useState, useEffect } from 'react';
-import apiClient from '../api/client';  // Add this import
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import client from '../api/client';
 
-export const TripContext = createContext();
+const TripContext = createContext();
 
 export const TripProvider = ({ children }) => {
+  const { user } = useAuth();
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (user) fetchTrips();
+  }, [user]);
 
   const fetchTrips = async () => {
     setLoading(true);
     try {
-      const response = await apiClient.get('/trips');
-      setTrips(response.data);
-    } catch (err) {
-      setError('Failed to fetch trips');
-      console.error(err);
+      const response = await client.get(`/user/${user.id}/tripPlan`);  // Path: /api/user/:userId/tripPlan
+      setTrips(response.data.data || []);  // Response: { success: true, data: [...] }
+    } catch (error) {
+      console.error('Failed to fetch trips');
     } finally {
       setLoading(false);
     }
   };
 
-  const createTrip = async (tripData) => {
+  const addTrip = async (tripData) => {
     try {
-      const response = await apiClient.post('/trips', tripData);
-      setTrips([...trips, response.data]);
-    } catch (err) {
-      setError('Failed to create trip');
-      console.error(err);
+      const response = await client.post(`/user/${user.id}/tripPlan`, tripData);  // Path: /api/user/:userId/tripPlan
+      const newTrip = response.data.data;  // Response: { success: true, data: trip }
+      setTrips([...trips, newTrip]);
+    } catch (error) {
+      console.error('Failed to add trip');
     }
   };
 
-  const updateTrip = async (id, tripData) => {
+  const updateTrip = async (tripId, updates) => {
     try {
-      const response = await apiClient.put(`/trips/${id}`, tripData);
-      setTrips(trips.map(trip => trip.id === id ? response.data : trip));
-    } catch (err) {
-      setError('Failed to update trip');
-      console.error(err);
+      const response = await client.put(`/user/${user.id}/tripPlan/${tripId}`, updates);  // Path: /api/user/:userId/tripPlan/:tripId
+      setTrips(trips.map(t => t.id === tripId ? response.data.data : t));  // Response: { success: true, data: trip }
+    } catch (error) {
+      console.error('Failed to update trip');
     }
   };
 
-  const deleteTrip = async (id) => {
+  const deleteTrip = async (tripId) => {
     try {
-      await apiClient.delete(`/trips/${id}`);
-      setTrips(trips.filter(trip => trip.id !== id));
-    } catch (err) {
-      setError('Failed to delete trip');
-      console.error(err);
+      await client.delete(`/user/${user.id}/tripPlan/${tripId}`);  // Path: /api/user/:userId/tripPlan/:tripId
+      setTrips(trips.filter(t => t.id !== tripId));
+    } catch (error) {
+      console.error('Failed to delete trip');
     }
   };
-
-  useEffect(() => {
-    fetchTrips();
-  }, []);
 
   return (
-    <TripContext.Provider value={{ trips, loading, error, fetchTrips, createTrip, updateTrip, deleteTrip }}>
+    <TripContext.Provider value={{ trips, loading, fetchTrips, addTrip, updateTrip, deleteTrip }}>
       {children}
     </TripContext.Provider>
   );
 };
+
+export const useTrips = () => useContext(TripContext);

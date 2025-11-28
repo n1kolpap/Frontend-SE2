@@ -1,71 +1,146 @@
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Full white background, mobile-first */
+.login-page {
   min-height: 100vh;
-  background: #007BFF;
+  background-color: white;  /* Full white background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
+  box-sizing: border-box;
 }
 
-.login-content {
-  width: 100%;
-  max-width: 340px;
+/* Logo and title centered near top */
+.logo-section {
   text-align: center;
-}
-
-.login-logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: #FFFFFF;
   margin-bottom: 40px;
 }
 
+.logo-section h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.logo-section h2 {
+  font-size: 1rem;
+  color: #666;
+  margin: 10px 0 0 0;
+}
+
+/* Form styling */
 .login-form {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
 }
 
-.login-input {
+/* Inputs: White with rounded corners and light shadow */
+.input-field {
   width: 100%;
-  padding: 14px 16px;
+  padding: 15px;
   border: none;
-  border-radius: 14px;
-  font-size: 16px;
-  background: #FFFFFF;
-  color: #000000;
-  margin-bottom: 12px;
+  border-radius: 10px;  /* Rounded corners */
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Light shadow */
 }
 
-.btn-login {
+.input-field::placeholder {
+  color: #999;
+}
+
+/* Orange button with rounded corners */
+.login-button {
   width: 100%;
-  background: #FF8A00;
-  color: #FFFFFF;
+  padding: 15px;
+  background-color: #ff8a00;  /* Orange */
+  color: white;
   border: none;
-  border-radius: 24px;
-  padding: 14px;
-  font-size: 16px;
+  border-radius: 10px;  /* Rounded corners */
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-bottom: 12px;
+  transition: background-color 0.3s;
 }
 
-.btn-signup {
-  width: 100%;
-  background: #FFFFFF;
-  color: #007BFF;
-  border: 2px solid #007BFF;
-  border-radius: 24px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 16px;
+.login-button:hover {
+  background-color: #e67a00;
 }
 
-.btn-forgot {
-  background: none;
-  border: none;
-  color: #FFFFFF;
+.login-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error message */
+.error-message {
+  color: #ff0000;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Links */
+.signup-link, .forgot-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.signup-link:hover, .forgot-link:hover {
   text-decoration: underline;
-  cursor: pointer;
-  font-size: 14px;
+}
+
+/* Override global styles */
+body {
+  background-color: white !important;  /* Ensure no blue background */
+}
+
+input {
+  width: auto !important;  /* Override fixed widths */
+  border: none !important;  /* Remove borders */
+}
+
+.login {
+  min-height: 100vh;
+  background-color: #0057D9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+.login h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.login p {
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login a {
+  color: white;
+  text-decoration: none;
+  margin: 10px 0;
 }

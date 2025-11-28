@@ -1,14 +1,5 @@
-import React from 'react';
-import './FloatingActionButtons.css';
-
-const FloatingActionButtons = ({ onAdd }) => {
-  return (
-    <div className="fab-container">
-      <button className="fab fab-edit">✏️</button>
-      <button className="fab fab-location">📍</button>
-      <button className="fab fab-add" onClick={onAdd}>➕</button>
-    </div>
-  );
-};
+import React from 'react';import './FloatingActionButtons.css';const FloatingActionButtons = ({ onBlue, onOrange, onBlack }) => (  <div className="floating-buttons">    <button className="fab blue" onClick={onBlue}>🔵</button>    <button className="fab orange" onClick={onOrange}>🟠</button>    <button className="fab black" onClick={onBlack}>⚫</button>
+  </div>
+);
 
 export default FloatingActionButtons;

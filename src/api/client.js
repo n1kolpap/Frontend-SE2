@@ -1,14 +1,10 @@
 import axios from 'axios';
 
-const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const client = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:3000/api',  // Προσθήκη /api στο baseURL
 });
 
-// Add auth token from localStorage
-apiClient.interceptors.request.use((config) => {
+client.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -16,4 +12,15 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-export default apiClient;
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default client;

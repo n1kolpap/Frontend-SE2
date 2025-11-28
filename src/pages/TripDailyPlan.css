@@ -125,3 +125,30 @@
   cursor: pointer;
   text-align: left;
 }
+
+.daily-plan {
+  padding: 20px;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.daily-plan h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.day {
+  margin-bottom: 20px;
+}
+
+.day h2 {
+  margin-bottom: 15px;
+}
+
+.add-activity {
+  background-color: #F8F9FA;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}

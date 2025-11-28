@@ -1,40 +1,106 @@
+/* Mobile-first: Full-screen white background, flexbox for centering */
 .welcome-container {
+  min-height: 100vh;
+  background-color: white;  /* White background as per mockup */
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background: #FFFFFF;
+  align-items: center;
+  text-align: center;
   padding: 20px;
 }
 
-.welcome-content {
+.welcome {
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin-bottom: 60px;
+  padding: 20px;
 }
 
-.welcome-logo {
-  font-size: 32px;
+.welcome h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+/* Centered content wrapper */
+.welcome-content {
+  width: 100%;
+  max-width: 400px;  /* Responsive max-width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 100vh;  /* Full height for bottom button placement */
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+
+/* Logo and tagline section: Centered block at top */
+.logo-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2.5rem;
   font-weight: bold;
-  color: #007BFF;
-  margin-bottom: 16px;
-}
-
-.welcome-subtitle {
-  font-size: 18px;
-  color: #6F6F6F;
+  color: #333;
   margin: 0;
 }
 
-.btn-welcome {
-  background: #FF8A00;
-  color: #FFFFFF;
+.tagline {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 10px 0 0 0;
+}
+
+/* Orange button: Pill shape, centered at bottom */
+.welcome-button {
+  background-color: #FF8A00;  /* Orange as per mockup */
+  color: white;
   border: none;
-  border-radius: 24px;
-  padding: 14px 48px;
-  font-size: 16px;
+  border-radius: 50px;  /* Fully rounded pill shape */
+  padding: 15px 30px;
+  font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  width: 60%;
-  max-width: 280px;
+  transition: background-color 0.3s;
+  align-self: center;
+}
+
+.welcome-button:hover {
+  background-color: #E67A00;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .welcome-content {
+    max-width: 500px;
+  }
+
+  .logo {
+    font-size: 3rem;
+  }
+
+  .tagline {
+    font-size: 1.5rem;
+  }
+
+  .welcome-button {
+    padding: 18px 40px;
+    font-size: 1.4rem;
+  }
 }

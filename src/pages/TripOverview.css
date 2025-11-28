@@ -117,3 +117,84 @@
   border: 1px solid #E0E0E0;
   color: #000000;
 }
+
+.trip-overview {
+  padding: 20px;
+  background-color: white;
+  min-height: 100vh;
+}
+
+.trip-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.trip-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.trip-header p {
+  color: #666;
+}
+
+.share-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.overview {
+  margin-top: 20px;
+}
+
+.overview h2 {
+  margin-bottom: 15px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.favorites {
+  margin-bottom: 20px;
+}
+
+.favorites h3 {
+  margin-bottom: 10px;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.card {
+  background-color: #F8F9FA;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .trip-overview {
+    padding: 30px;
+  }
+
+  .buttons-section {
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
