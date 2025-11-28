@@ -1,0 +1,136 @@
+.app-header {
+	height: var(--header-height);
+	background: linear-gradient(90deg, #312e81, #4f46e5);
+	color: #fff;
+	display: flex;
+	align-items: center;
+	padding: 0 1.5rem;
+	justify-content: space-between;
+	box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+}
+
+.app-header__brand {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+}
+
+.app-header__logo {
+	width: 28px;
+	height: 28px;
+	border-radius: 999px;
+	background: radial-gradient(circle at 30% 30%, #a5b4fc, #4f46e5);
+}
+
+.app-header__user {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.9rem;
+}
+
+.bottom-nav {
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: var(--bottom-nav-height);
+	background: #ffffff;
+	border-top: 1px solid var(--color-border);
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	z-index: 20;
+}
+
+.bottom-nav__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 0.75rem;
+	cursor: pointer;
+	color: var(--color-text-muted);
+}
+
+.bottom-nav__item--active {
+	color: var(--color-primary);
+	font-weight: 600;
+}
+
+.main-card {
+	background: var(--color-bg-alt);
+	border-radius: 1.25rem;
+	padding: 1.5rem;
+	box-shadow: var(--shadow-card);
+}
+
+.main-card--hero {
+	display: grid;
+	gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+	.main-card--hero {
+		grid-template-columns: 3fr 2fr;
+	}
+}
+
+.main-card__hero-graphic {
+	background: radial-gradient(circle at 0 0, #e0e7ff, #eef2ff);
+	border-radius: 1rem;
+	padding: 1rem;
+	min-height: 180px;
+	position: relative;
+	overflow: hidden;
+}
+
+.main-card__hero-badge {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	background: rgba(15, 23, 42, 0.8);
+	color: #e5e7eb;
+	padding: 0.4rem 0.7rem;
+	border-radius: 999px;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.main-card__hero-map {
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle at 20% 10%, #6366f1 0, transparent 60%),
+	radial-gradient(circle at 80% 80%, #22c55e 0, transparent 55%);
+	opacity: 0.28;
+}
+
+.main-card__hero-plane {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
+	background: #ffffff;
+	padding: 0.6rem 1rem;
+	border-radius: 999px;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	box-shadow: var(--shadow-soft);
+	font-size: 0.8rem;
+}
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.25rem 0.6rem;
+	border-radius: 999px;
+	background: var(--color-primary-soft);
+	color: var(--color-primary-dark);
+	font-size: 0.75rem;
+}
+
+.chip + .chip {
+	margin-left: 0.25rem;
+}
