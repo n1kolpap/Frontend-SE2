@@ -1,39 +1,66 @@
 import React, { createContext, useState } from 'react';
 
-export const TripContext = createContext();
+export const TripContext = createContext(null);
 
+/**
+ * TripContext keeps:
+ * - myTrips: in-memory list of trips for HomePage
+ * - selectedTrip: currently active trip
+ * - dailyPlans: array of daily plan objects
+ * - favorites: list of favorite activities
+ */
 export const TripProvider = ({ children }) => {
-  const [trips, setTrips] = useState([]);
-  const [currentTrip, setCurrentTrip] = useState(null);
+	const [myTrips, setMyTrips] = useState([]);
+	const [selectedTrip, setSelectedTrip] = useState(null);
+	const [dailyPlans, setDailyPlans] = useState([]);
+	const [favorites, setFavorites] = useState([]);
 
-  const createTrip = (tripData) => {
-    const newTrip = { id: Date.now(), ...tripData, dailyPlan: [] };
-    setTrips([...trips, newTrip]);
-    setCurrentTrip(newTrip);
-    return newTrip.id;
-  };
+	const upsertTrip = (trip) => {
+		if (!trip?.tripId) {
+			return;
+		}
+		setMyTrips((prev) => {
+			const exists = prev.some((t) => t.tripId === trip.tripId);
+			if (exists) {
+				return prev.map((t) => (t.tripId === trip.tripId ? { ...t, ...trip } : t));
+			}
+			return [...prev, trip];
+		});
+	};
 
-  const updateTrip = (tripId, tripData) => {
-    setTrips(trips.map(t => t.id === tripId ? { ...t, ...tripData } : t));
-  };
+	const removeTrip = (tripId) => {
+		setMyTrips((prev) => prev.filter((t) => t.tripId !== tripId));
+		if (selectedTrip?.tripId === tripId) {
+			setSelectedTrip(null);
+		}
+	};
 
-  const addActivity = (tripId, date, activity) => {
-    setTrips(trips.map(t => t.id === tripId ? {
-      ...t,
-      dailyPlan: t.dailyPlan.map(d => d.date === date ? { ...d, activities: [...d.activities, { ...activity, id: Date.now() }] } : d)
-    } : t));
-  };
+	const toggleFavorite = (tripId, date, activity) => {
+		const key = `${tripId}-${date}-${activity.activityId}`;
+		setFavorites((prev) => {
+			const exists = prev.find((f) => f.key === key);
+			if (exists) {
+				return prev.filter((f) => f.key !== key);
+			}
+			return [...prev, { key, tripId, date, activity }];
+		});
+	};
 
-  const deleteActivity = (tripId, date, activityId) => {
-    setTrips(trips.map(t => t.id === tripId ? {
-      ...t,
-      dailyPlan: t.dailyPlan.map(d => d.date === date ? { ...d, activities: d.activities.filter(a => a.id !== activityId) } : d)
-    } : t));
-  };
-
-  return (
-    <TripContext.Provider value={{ trips, currentTrip, createTrip, updateTrip, addActivity, deleteActivity, setCurrentTrip }}>
-      {children}
-    </TripContext.Provider>
-  );
+	return (
+		<TripContext.Provider
+		value={{
+			myTrips,
+			selectedTrip,
+			dailyPlans,
+			favorites,
+			setSelectedTrip,
+			setDailyPlans,
+			upsertTrip,
+			removeTrip,
+			toggleFavorite
+		}}
+		>
+		{children}
+		</TripContext.Provider>
+	);
 };

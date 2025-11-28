@@ -1,79 +1,47 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { logIn as apiLogin, signUp as apiSignUp } from '../api/services';
+import React, { createContext, useEffect, useState } from 'react';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const history = useHistory();
+	const [user, setUser] = useState(null); // { userId, username, email }
+	const [token, setToken] = useState(null);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    const username = localStorage.getItem('username');
-    const email = localStorage.getItem('email');
+	useEffect(() => {
+		const stored = localStorage.getItem('triptrail_auth');
+		if (stored) {
+			try {
+				const parsed = JSON.parse(stored);
+				setUser(parsed.user || null);
+				setToken(parsed.token || null);
+			} catch {
+				// ignore
+			}
+		}
+		setLoading(false);
+	}, []);
 
-    if (token && userId) {
-      setUser({ userId, username, email });
-    }
-    setLoading(false);
-  }, []);
+	const handleLogin = (userPayload, tokenPayload) => {
+		const authData = { user: userPayload, token: tokenPayload };
+		setUser(userPayload);
+		setToken(tokenPayload);
+		localStorage.setItem('triptrail_auth', JSON.stringify(authData));
+	};
 
-  const login = async (username, password) => {
-    try {
-      const response = await apiLogin(username, password);
-      
-      if (response.success) {
-        const { user, token } = response.data;
-        
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', user.userId);
-        localStorage.setItem('username', user.username);
-        localStorage.setItem('email', user.email);
-        
-        setUser(user);
-        history.push('/dashboard');
-        return { success: true };
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Login failed',
-      };
-    }
-  };
+	const handleLogout = () => {
+		setUser(null);
+		setToken(null);
+		localStorage.removeItem('triptrail_auth');
+	};
 
-  const signup = async (username, password, email) => {
-    try {
-      const response = await apiSignUp(username, password, email);
-      
-      if (response.success) {
-        return { success: true, message: response.message };
-      }
-    } catch (error) {
-      console.error('Signup error:', error);
-      return {
-        success: false,
-        message: error.response?.data?.message || 'Signup failed',
-      };
-    }
-  };
+	const value = {
+		user,
+		token,
+		isAuthenticated: !!user && !!token,
+		loading,
+		login: handleLogin,
+		logout: handleLogout
+	};
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('username');
-    localStorage.removeItem('email');
-    setUser(null);
-    history.push('/login');
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
-      {children}
-    </AuthContext.Provider>
-  );
+	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
