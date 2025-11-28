@@ -1,27 +1,9 @@
 .trip-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  cursor: pointer;
-  position: relative;
-}
-
-.trip-card h2 {
-  margin: 0 0 10px 0;
-}
-
-.trip-card p {
-  color: #666;
-  margin: 0;
-}
-
-.share-icon {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 1.5rem;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .trip-card-header {

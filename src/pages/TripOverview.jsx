@@ -1,115 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import client from '../api/client';
-import TabNavigation from '../components/TabNavigation';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { mockData } from '../mock/data';
+import Card from '../components/Card';
 import './TripOverview.css';
 
 const TripOverview = () => {
   const { tripId } = useParams();
-  const { user } = useAuth();
-  const [trip, setTrip] = useState(null);
-  const [activeTab, setActiveTab] = useState('Overview');
-  const [editing, setEditing] = useState(false);
+  const history = useHistory();
+  const [activeTab, setActiveTab] = useState('overview');
   const [budget, setBudget] = useState('');
-  const [estimatedCost, setEstimatedCost] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [cost, setCost] = useState('');
+  const [isEditMode, setIsEditMode] = useState(true);
 
-  useEffect(() => {
-    const fetchTrip = async () => {
-      try {
-        const response = await client.get(`/user/${user.id}/tripPlan/${tripId}`);
-        setTrip(response.data.data);
-        setBudget(response.data.data.budget || '');
-        setEstimatedCost(response.data.data.estimatedCost || '');
-      } catch (error) {
-        console.error('Failed to fetch trip');
-      }
-    };
-    fetchTrip();
-  }, [tripId, user]);
+  // Mock data for trip
+  const trip = mockData.trips.find(t => t.id === parseInt(tripId)) || mockData.trips[0];
 
-  const handleSave = async () => {
-    setLoading(true);
-    try {
-      await client.put(`/user/${user.id}/tripPlan/${tripId}`, { budget, estimatedCost });
-      setTrip({ ...trip, budget, estimatedCost });
-      setEditing(false);
-    } catch (error) {
-      alert('Failed to save trip');
-    } finally {
-      setLoading(false);
-    }
+  const handleSave = () => {
+    setIsEditMode(false);
+  };
+
+  const handleEdit = () => {
+    setIsEditMode(true);
   };
 
   const handleCancel = () => {
-    setBudget(trip.budget || '');
-    setEstimatedCost(trip.estimatedCost || '');
-    setEditing(false);
+    history.goBack();
   };
 
-  if (!trip) return <div>Loading...</div>;
+  const handleExport = () => {
+    // Mock export
+    alert('Exporting as PDF');
+  };
 
   return (
-    <div className="trip-overview">
-      <div className="trip-header">
-        <h1>Trip to {trip.destination}</h1>
-        <p>{trip.startDate} - {trip.endDate}</p>
-        <button className="share-button">Share</button>
+    <div className="trip-overview-container">
+      <div className="trip-overview-header">
+        <button onClick={() => history.push('/dashboard')} className="back-btn">←</button>
+        <h1>TripTrail</h1>
+        <button className="share-btn">📤</button>
       </div>
-      <TabNavigation tabs={['Overview', 'Daily Plan', 'Review']} activeTab={activeTab} onTabChange={setActiveTab} />
-      {activeTab === 'Overview' && (
-        <div className="overview-content">
-          <h3>Budget & Cost Overview</h3>
-          <div className="budget-section">
-            <label>Budget: €</label>
-            <input
-              type="number"
-              value={budget}
-              onChange={(e) => setBudget(e.target.value)}
-              disabled={!editing}
-              className="input-field"
-            />
-          </div>
-          <div className="cost-section">
-            <label>Estimated Cost: €</label>
-            <input
-              type="number"
-              value={estimatedCost}
-              onChange={(e) => setEstimatedCost(e.target.value)}
-              disabled={!editing}
-              className="input-field"
-            />
-          </div>
-          <div className="favorites-section">
-            <h4>Your Favorites</h4>
-            <div className="favorites-list">
-              {/* Placeholder for favorites */}
-              <div className="favorite-card">
-                <p>Central Park</p>
-                <p>Description...</p>
-              </div>
-            </div>
-            <button className="add-favorite">+</button>
-          </div>
-          <div className="buttons-section">
-            {editing ? (
-              <>
-                <button onClick={handleSave} disabled={loading} className="save-button">
-                  {loading ? 'Saving...' : 'Save'}
-                </button>
-                <button onClick={handleCancel} className="cancel-button">Cancel</button>
-              </>
-            ) : (
-              <>
-                <button onClick={() => console.log('Export as PDF')} className="export-button">Export as PDF</button>
-                <button onClick={() => setEditing(true)} className="edit-button">Edit</button>
-              </>
-            )}
-          </div>
+
+      <div className="tabs">
+        <button
+          className={`tab ${activeTab === 'overview' ? 'active' : ''}`}
+          onClick={() => setActiveTab('overview')}
+        >
+          Overview
+        </button>
+        <button
+          className={`tab ${activeTab === 'daily' ? 'active' : ''}`}
+          onClick={() => setActiveTab('daily')}
+        >
+          Daily Plan
+        </button>
+        <button
+          className={`tab ${activeTab === 'review' ? 'active' : ''}`}
+          onClick={() => setActiveTab('review')}
+        >
+          Review
+        </button>
+      </div>
+
+      <div className="overview-content">
+        <Card>
+          <h3>Budget</h3>
+          <input
+            type="number"
+            placeholder="Enter budget"
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+            className="input-field"
+            disabled={!isEditMode}
+          />
+        </Card>
+
+        <Card>
+          <h3>Estimated cost</h3>
+          <input
+            type="number"
+            placeholder="Enter estimated cost"
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
+            className="input-field"
+            disabled={!isEditMode}
+          />
+        </Card>
+
+        <Card>
+          <h3>Your Favorites</h3>
+          <p>No favorites yet</p>
+          <button className="btn-edit">Edit</button>
+        </Card>
+
+        <div className="overview-buttons">
+          {isEditMode ? (
+            <>
+              <button onClick={handleCancel} className="btn-cancel">Cancel</button>
+              <button onClick={handleSave} className="btn-save">Save</button>
+            </>
+          ) : (
+            <>
+              <button onClick={handleEdit} className="btn-edit-mode">Edit</button>
+              <button onClick={handleExport} className="btn-export">Export as PDF</button>
+            </>
+          )}
         </div>
-      )}
-      {/* Add other tabs if needed */}
+      </div>
     </div>
   );
 };

@@ -1,12 +1,14 @@
 import React from 'react';
 import './TripCard.css';
 
-const TripCard = ({ trip, onClick }) => (
-  <div className="trip-card" onClick={onClick}>
-    <h2>Trip to {trip.destination}</h2>
-    <p>{new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}</p>
-    <div className="share-icon">📤</div>
-  </div>
-);
+const TripCard = ({ trip }) => {
+  return (
+    <div className="trip-card">
+      <h3>{trip.destination}</h3>
+      <p>{trip.startDate} - {trip.endDate}</p>
+      <button className="btn-share">Share</button>
+    </div>
+  );
+};
 
 export default TripCard;

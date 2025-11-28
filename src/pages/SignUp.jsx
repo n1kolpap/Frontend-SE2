@@ -1,61 +1,73 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import './SignUp.css';  // Changed to SignUp.css
+import { useHistory } from 'react-router-dom';
+import './SignUp.css';
 
-const Signup = () => {
-  const [userData, setUserData] = useState({ username: '', email: '', password: '' });
-  const { signup, loading } = useAuth();
-  const [error, setError] = useState('');
+const SignUp = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const history = useHistory();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await signup(userData);
-    } catch (err) {
-      setError(err.message);
+  const handleSignUp = () => {
+    if (name && email && password) {
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        history.push('/login');
+      }, 2000);
+    } else {
+      alert('Please fill in all fields');
     }
   };
 
+  const handleLogin = () => {
+    history.push('/login');
+  };
+
   return (
-    <div className="signup-page">
-      <div className="logo-section">
-        <h1>TripTrail</h1>
-        <h2>Unlock the world</h2>
+    <div className="signup-container">
+      <div className="signup-content">
+        <div className="signup-logo">TripTrail</div>
+        
+        <form className="signup-form">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="signup-input"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="signup-input"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="signup-input"
+          />
+          <button type="button" onClick={handleSignUp} className="btn-signup">Sign Up</button>
+        </form>
+
+        <button onClick={handleLogin} className="btn-login">Log In</button>
       </div>
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={userData.username}
-          onChange={(e) => setUserData({ ...userData, username: e.target.value })}
-          required
-          className="input-field"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={userData.email}
-          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-          required
-          className="input-field"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={userData.password}
-          onChange={(e) => setUserData({ ...userData, password: e.target.value })}
-          required
-          className="input-field"
-        />
-        <button type="submit" disabled={loading} className="signup-button">
-          {loading ? 'Signing up...' : 'Sign Up'}
-        </button>
-        {error && <p className="error-message">{error}</p>}
-      </form>
-      <Link to="/login" className="login-link">Log In</Link>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-card">
+            <h2>Success!</h2>
+            <p>Your account has been created.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;

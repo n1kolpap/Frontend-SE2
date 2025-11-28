@@ -1,18 +1,11 @@
 .activity-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-}
-
-.activity-card h3 {
-  margin: 0 0 5px 0;
-}
-
-.activity-card p {
-  margin: 5px 0;
-  color: #666;
+  background: #F4F4F4;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .activity-info h4 {
@@ -50,17 +43,4 @@
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
-}
-
-.icons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.icons button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
 }
