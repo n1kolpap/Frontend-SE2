@@ -9,6 +9,8 @@ The login credentials in .json are:
 }
 ```
 
+2. Logout
+
 #### happy-path-full.cy.js
 
 1. Login
