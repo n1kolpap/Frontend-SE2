@@ -1,0 +1,505 @@
+# Generate Production-Ready React Frontend
+**Name:** TripTrail
+**Description:** It generates a trip plan which the user can edit
+## Input Sources (Priority Order)
+1. **Mockups/Wireframes** (PRIMARY) - Visual structure & layout
+2. **OpenAPI Spec** - API endpoints & data models
+3. **User Stories** - User flows & interactions
+4. **Activity Diagrams** - User journeys
+SOURCE ARTIFACTS
+1. MOCKUPS (for page structure and navigation):
+I WILL SEND THE MOCKUPS, DO NOT REPLY YET, WAIT FOR NEXT INSTRUCTION
+
+2. OPENAPI/SWAGGER SPECIFICATION (PRIMARY SOURCE for API/backend):
+```json
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TripTrail API",
+    "description": "OpenAPI 3.0 specification for the REST API of the TripTrail app",
+    "version": "3.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.triptrail.com/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "TripPlan",
+      "description": "Everything about TripPlan",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "https://swagger.io"
+      }
+    },
+    {
+      "name": "DailyPlan",
+      "description": "Everything about DailyPlan",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "https://swagger.io"
+      }
+    },
+    {
+      "name": "User",
+      "description": "Operations about user"
+    },
+    {
+      "name": "AIAssistant",
+      "description": "About AI chat"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Create a new user",
+        "operationId": "signUp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Log in",
+        "operationId": "logIn",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User logged in"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/{userId}/tripPlan": {
+      "post": {
+        "tags": [
+          "TripPlan"
+        ],
+        "summary": "Create a new trip plan",
+        "operationId": "createTripPlan",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Trip plan details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripPlan"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Trip plan created"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/{userId}/tripPlan/{tripId}": {
+      "get": {
+        "tags": [
+          "TripPlan"
+        ],
+        "summary": "Get trip plan by ID",
+        "operationId": "getTripPlan",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trip plan data"
+          },
+          "404": {
+            "description": "Trip plan not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TripPlan"
+        ],
+        "summary": "Update trip plan by ID",
+        "operationId": "updateTripPlan",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TripPlan"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Trip plan updated"
+          },
+          "404": {
+            "description": "Trip plan not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TripPlan"
+        ],
+        "summary": "Delete trip plan",
+        "operationId": "deleteTripPlan",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Trip plan deleted"
+          },
+          "404": {
+            "description": "Trip plan not found"
+          }
+        }
+      }
+    },
+    "/user/{userId}/tripPlan/{tripId}/dailyPlan": {
+      "get": {
+        "tags": [
+          "DailyPlan"
+        ],
+        "summary": "View daily plan",
+        "operationId": "viewDailyplan",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tripId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily plan found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyPlan"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Failed to find requested daily plan"
+          }
+        }
+      }
+    },
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "email",
+          "password",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "TripPlan": {
+        "required": [
+          "budget",
+          "destination",
+          "endDate",
+          "origin",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "tripId": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "destination": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "budget": {
+            "type": "number",
+            "format": "float"
+          },
+          "activities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Activity"
+            }
+          }
+        }
+      },
+      "DailyPlan": {
+        "required": [
+          "activities",
+          "date"
+        ],
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "activities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Activity"
+            }
+          }
+        }
+      },
+      "Activity": {
+        "required": [
+          "day",
+          "name",
+          "time"
+        ],
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "day": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
+```
+3. USER STORIES (for UI features and user flows):
+R-2
+The user must be able to create a new trip plan by adding the trip details
+The user must be able to initiate a new trip plan by entering key information such as origin, destination, start and end dates, estimated budget, purpose of the trip (e.g. business, vacation), and personal interests
+
+R-3
+The user must be able to edit the trip details
+The user must be able to update existing trip information  in case of changes or corrections
+
+R-4
+The user must be able to delete a trip plan
+The user must be able to permanently remove an existing trip plan from the system, including all associated data such as activities, accommodations, and transport details
+
+R-11
+The user must be able to view the daily plan
+The user must be able to browse the full daily schedule of the trip plan, organized by date with listed activities, estimated times etc.
+
+R-14
+The user must be able to add activities to the daily plan
+The user must be able to manually add new activities into their daily trip plan, specifying time etc.
+
+R-15
+The user must be able to remove activities from the daily plan
+The user must be able to delete activities from the daily plan
+
+R-16
+The user must be able to request a new trip plan by changing trip details
+The user must be able to modify  trip inputs (destination, dates, interests) and receive an updated generated plan based on the changes
+
+R-32
+The user must be able to set a trip budget
+The user must be able to define a maximum amount they plan to spend for the whole trip
+
+R-35
+The user must be able to add activities to their favorites list
+The user can mark a destination or activity as a favorite during the planning process. This allows them to revisit and reuse saved items for future trips. The system stores favorites in the user's profile for easy access and management later.
+
+R-36
+The user must be able to view the generated daily and trip plan
+Once a trip has been created using key trip details (destination, dates, interests, etc.), the system automatically generates a structured daily plan. The user must be able to view this plan in a clear, day-by-day layout, including proposed activities and estimated costs.
+4. ACTIVITY DIAGRAMS (for UI features and user flows)
+I WILL SEND THE ACTIVITY DIAGRAMS, DO NOT REPLY YET, WAIT FOR NEXT INSTRUCTION
+
+##FRONTEND STRUCTURE
+package.json - Dependencies
+.env.example - Environment variables
+.gitignore - Git ignore rules
+README.md - Documentation
+public/*.* - Static assets & index.html
+src/index.js - App entry point
+src/App.js - Root component
+src/index.css - Global styles
+src/api/*.js - API client & methods for each resource
+src/components/*.jsx - Reusable UI components
+src/pages/*.jsx - Page components
+src/hooks/*.js - Custom React hooks
+src/context/*.jsx - React Context providers
+src/router/*.jsx - Route definitions & protected routes
+src/utils/*.js - Validators, formatters, constants, helpers
+src/styles/*.css - Global styles & CSS variables
+## Output Requirements
+Generate complete React app with:
+- Components from mockups
+- Pages/routes from user flows
+- API service layer (axios)
+- State management
+- Form validation
+- Responsive design
+- package.json with all deps
+- Fetching data using backend endpoints (described in OpenAPI Spec)
+- Use basic authentication
+- Use create-react-app
+Frontend Requirements:
+The frontend must consist of at least 4 (four) screens.
+It is recommended that these screens correspond to the provided mockups,
+but you may also include additional screens if you consider them
+necessary.
+The frontend must make requests to at least 5 (five) of the available
+backend endpoints.
+
+REST Resources
+Resource Type	BEC Class	REST Resource	HTTP Verbs	Parameters
+One-Off Resources	User	/user/{userId}	PUT	1 param
+Data Resources	TripPlan	/user/{userId}/tripPlan	POST GET	4 params
+Data Resources	TripPlan	/user/{userId}/tripPlan/{tripId}	PUT GET DELETE	2 params
+Data Resources	Activity	/user/{userId}/tripPlan/{tripId}/dailyPlan/{date}/activity/{activityId}	DELETE	3 params
+Data Resources	DailyPlan	/user/{userId}/tripPlan/{tripId}/dailyPlan	GET	2 params
+Data Resources	TripPlan	/user/{userId}/tripPlan/{tripId}	DELETE	2 params
+Data Resources	Activity	/user/{userId}/tripPlan/{tripId}/dailyPlan/{date}/activity	POST	3 params
+One-Off Resources	User	/user	POST	3 params
+One-Off Resources	User	/user/login	PUT	2 params
+
+Generate complete frontend.
