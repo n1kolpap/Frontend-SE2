@@ -120,7 +120,7 @@ The login credentials in .json are:
 The login credentials in .json are:
 {
  "username": "asdfghjkl1234567890qwertyuiopzxcvbnm",
- "email": "1"
+ "email": "1",
  "password": "asdfghjkl1234567890qwertyuiopzxcvbnm"
 }
 
