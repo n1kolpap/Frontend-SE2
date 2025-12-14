@@ -134,18 +134,20 @@ describe("Unhappy path - failed dates validation", () => {
     // -------------------------------------------------------------------------
     // 4) Log out
     // -------------------------------------------------------------------------
-    // The header is present across authenticated pages and includes "Log out".
-    cy.contains("button", /^Log out$/i).should("be.visible").click();
+    // Click "Log out" in the header.
+    cy.contains("button", /^Log out$/i).click();
 
-    // Auth should be cleared
+    // After logout, the app should land on /login (your current behavior).
+    cy.location("pathname", { timeout: 20000 }).should("eq", "/login");
+
+    // Auth should be cleared from localStorage
     cy.window().then((win) => {
-      expect(win.localStorage.getItem("triptrail_auth")).to.be.null;
+      expect(win.localStorage.getItem("triptrail_auth"), "auth cleared after logout").to.be.null;
     });
 
-    // Back on Welcome (server-safe route)
-    // cy.contains(/Unlock the world with/i, { timeout: 20000 }).should("be.visible");
-    // Back on Login
-    cy.contains(/Log in to TripTrail/i, { timeout: 20000 }).should("be.visible");
+    // Sanity check: login form fields are present again
+    cy.get("input#username").should("be.visible");
+    cy.get("input#password").should("be.visible");
 
   });
 });
