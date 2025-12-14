@@ -160,4 +160,3 @@ The login credentials in .json are:
 
 6. Check if error appears
 - `Validation failed`
-

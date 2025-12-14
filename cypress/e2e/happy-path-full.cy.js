@@ -330,20 +330,22 @@ describe("Happy path - full flow", () => {
 		// After deletion the app navigates back to /home
 		cy.location("pathname", { timeout: 20000 }).should("eq", "/home");
 
-		// -----------------------------------------------------------------------
+		// -------------------------------------------------------------------------
 		// 6) LOG OUT
-		// -----------------------------------------------------------------------
-		cy.contains("button", /^Log out$/i).should("be.visible").click();
+		// -------------------------------------------------------------------------
+		// Click "Log out" in the header.
+		cy.contains("button", /^Log out$/i).click();
+
+		// After logout, the app should land on /login (your current behavior).
+		cy.location("pathname", { timeout: 20000 }).should("eq", "/login");
 
 		// Auth should be cleared from localStorage
 		cy.window().then((win) => {
-			expect(win.localStorage.getItem("triptrail_auth")).to.be.null;
+			expect(win.localStorage.getItem("triptrail_auth"), "auth cleared after logout").to.be.null;
 		});
 
-		// After logout, we should be back on Welcome (/) or on Login (/login) depending on implementation.
-		// We return to Login page:
-		cy.contains(/Log in to TripTrail/i, { timeout: 20000 }).should("be.visible");
-		// Welcome is server-safe, so we assert on Welcome UI.	WORNG, this is not correct for now
-		// cy.contains(/Unlock the world with/i, { timeout: 20000 }).should("be.visible");
+		// Sanity check: login form fields are present again
+		cy.get("input#username").should("be.visible");
+		cy.get("input#password").should("be.visible");
 	});
 });
