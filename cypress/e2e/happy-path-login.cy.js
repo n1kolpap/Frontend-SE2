@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("happy-path-1-login", () => {
+describe("happy-path-login", () => {
   const creds = {
     username: "john_doe",
     password: "password123",
