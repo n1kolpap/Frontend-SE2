@@ -18,11 +18,11 @@ const Modal = ({ open, title, children, onClose, actions }) => {
 		<div
 		style={{
 			background: '#fff',
-		 borderRadius: '1rem',
-		 padding: '1.5rem',
-		 width: '100%',
-		 maxWidth: 420,
-		 boxShadow: 'var(--shadow-card)'
+		 	borderRadius: '1rem',
+		 	padding: '1.5rem',
+		 	width: '100%',
+		 	maxWidth: 420,
+		 	boxShadow: 'var(--shadow-card)'
 		}}
 		>
 		{title && <h3 style={{ marginTop: 0, marginBottom: '0.75rem' }}>{title}</h3>}
@@ -30,8 +30,8 @@ const Modal = ({ open, title, children, onClose, actions }) => {
 		<div
 		style={{
 			display: 'flex',
-		 justifyContent: 'flex-end',
-		 gap: '0.5rem'
+		 	justifyContent: 'flex-end',
+		 	gap: '0.5rem'
 		}}
 		>
 		<Button variant="ghost" size="sm" onClick={onClose}>
