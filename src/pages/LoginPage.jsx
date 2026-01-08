@@ -103,13 +103,13 @@ const LoginPage = () => {
 	onClick={() => setMode('signup')}
 	style={{
 		flex: 1,
-		 	borderRadius: '999px',
-		 	padding: '0.4rem 0.75rem',
-		 	border: 'none',
-		 	cursor: 'pointer',
-		 	background:
-		 	mode === 'signup' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
-			color: mode === 'signup' ? '#fff' : 'var(--color-primary-dark)'
+		borderRadius: '999px',
+		padding: '0.4rem 0.75rem',
+		border: 'none',
+		cursor: 'pointer',
+		background:
+		mode === 'signup' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
+		color: mode === 'signup' ? '#fff' : 'var(--color-primary-dark)'
 	}}
 	>
 	Sign up
