@@ -10,6 +10,7 @@ import BottomNav from '../components/layout/BottomNav';
 import Button from '../components/common/Button';
 import Tabs from '../components/common/Tabs';
 import Spinner from '../components/common/Spinner';
+import PageSubtitleAndError from '../components/PageSubtitleAndError';
 
 const DailyPlanPage = () => {
 	const { tripId } = useParams();
@@ -86,25 +87,11 @@ const DailyPlanPage = () => {
 		<h1 className="page-title">
 		Daily plan {trip ? `for ${trip.destination}` : ''}
 		</h1>
-		<p className="page-subtitle">
-		Browse your day-by-day schedule, add or remove activities, mark them as done, and keep
-		notes.
-		</p>
 
-		{serverError && (
-			<div
-			style={{
-				marginBottom: '0.75rem',
-				fontSize: '0.8rem',
-				color: 'var(--color-danger)',
-				backgroundColor: 'var(--color-danger-soft)',
-				padding: '0.4rem 0.6rem',
-				borderRadius: '0.75rem'
-			}}
-			>
-			{serverError}
-			</div>
-		)}
+		<PageSubtitleAndError
+		subtitle="Browse your day-by-day schedule, add or remove activities, mark them as done, and keep notes."
+		serverError={serverError}
+		/>
 
 		{loading ? (
 			<Spinner />
