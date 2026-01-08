@@ -38,7 +38,7 @@ const LoginPage = () => {
 				}
 				const data = await login({
 					username: form.username.trim(),
-										 password: form.password
+					password: form.password
 				});
 				const user = data?.data?.user;
 				const token = data?.data?.token;
@@ -56,8 +56,8 @@ const LoginPage = () => {
 				}
 				await signUp({
 					username: form.username.trim(),
-							 password: form.password,
-							 email: form.email.trim()
+					password: form.password,
+					email: form.email.trim()
 				});
 				setMode('login');
 				setServerError('Account created. You can log in now.');
@@ -93,7 +93,7 @@ const LoginPage = () => {
 		cursor: 'pointer',
 		background:
 		mode === 'login' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
-			color: mode === 'login' ? '#fff' : 'var(--color-primary-dark)'
+		color: mode === 'login' ? '#fff' : 'var(--color-primary-dark)'
 	}}
 	>
 	Log in
@@ -103,13 +103,13 @@ const LoginPage = () => {
 	onClick={() => setMode('signup')}
 	style={{
 		flex: 1,
-		 borderRadius: '999px',
-		 padding: '0.4rem 0.75rem',
-		 border: 'none',
-		 cursor: 'pointer',
-		 background:
-		 mode === 'signup' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
-			color: mode === 'signup' ? '#fff' : 'var(--color-primary-dark)'
+		borderRadius: '999px',
+		padding: '0.4rem 0.75rem',
+		border: 'none',
+		cursor: 'pointer',
+		background:
+		mode === 'signup' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
+		color: mode === 'signup' ? '#fff' : 'var(--color-primary-dark)'
 	}}
 	>
 	Sign up
@@ -122,11 +122,11 @@ const LoginPage = () => {
 			marginBottom: '0.75rem',
 			fontSize: '0.8rem',
 			color: serverError.includes('created') ? 'var(--color-success)' : 'var(--color-danger)',
-					 backgroundColor: serverError.includes('created')
-					 ? '#dcfce7'
-					 : 'var(--color-danger-soft)',
-					 padding: '0.4rem 0.6rem',
-					 borderRadius: '0.75rem'
+			backgroundColor: serverError.includes('created')
+			? '#dcfce7'
+			: 'var(--color-danger-soft)',
+			padding: '0.4rem 0.6rem',
+			borderRadius: '0.75rem'
 		}}
 		>
 		{serverError}

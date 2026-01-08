@@ -72,7 +72,7 @@ const DailyPlanPage = () => {
 
 	const activeDay = dailyPlans.find((d) => d.date === activeDate) || dailyPlans[0];
 
-	const handleAddSuggestion = async (activity) => {
+	const handleAddSuggestion = async (_) => {
 		if (!activeDay) return;
 		// We'll let the day card handle actual add, so here we just open the form
 		// or pass suggestion down via a more complex mechanism.
@@ -97,9 +97,9 @@ const DailyPlanPage = () => {
 				marginBottom: '0.75rem',
 				fontSize: '0.8rem',
 				color: 'var(--color-danger)',
-						 backgroundColor: 'var(--color-danger-soft)',
-						 padding: '0.4rem 0.6rem',
-						 borderRadius: '0.75rem'
+				backgroundColor: 'var(--color-danger-soft)',
+				padding: '0.4rem 0.6rem',
+				borderRadius: '0.75rem'
 			}}
 			>
 			{serverError}
@@ -157,7 +157,7 @@ const DailyPlanPage = () => {
 				style={{
 					marginTop: '1rem',
 					borderTop: '1px dashed var(--color-border)',
-									  paddingTop: '0.75rem'
+					paddingTop: '0.75rem'
 				}}
 				>
 				<div style={{ fontWeight: 600, marginBottom: '0.4rem', fontSize: '0.9rem' }}>
@@ -178,7 +178,7 @@ const DailyPlanPage = () => {
 						borderRadius: '999px',
 						padding: '0.25rem 0.6rem',
 						background: 'var(--color-primary-soft)',
-									   color: 'var(--color-primary-dark)'
+						color: 'var(--color-primary-dark)'
 					}}
 					>
 					{f.activity.name}
