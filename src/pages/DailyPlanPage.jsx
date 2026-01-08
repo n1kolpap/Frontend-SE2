@@ -178,7 +178,7 @@ const DailyPlanPage = () => {
 						borderRadius: '999px',
 						padding: '0.25rem 0.6rem',
 						background: 'var(--color-primary-soft)',
-									   color: 'var(--color-primary-dark)'
+						color: 'var(--color-primary-dark)'
 					}}
 					>
 					{f.activity.name}
