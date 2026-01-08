@@ -46,9 +46,9 @@ const TripCard = ({ trip, onOverview, onDaily }) => {
 		<div
 		style={{
 			display: 'flex',
-		 	justifyContent: 'flex-end',
-		 	gap: '0.5rem',
-		 	marginTop: '0.5rem'
+			justifyContent: 'flex-end',
+			gap: '0.5rem',
+			marginTop: '0.5rem'
 		}}
 		>
 		<Button variant="ghost" size="sm" onClick={onOverview}>
