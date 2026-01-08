@@ -157,7 +157,7 @@ const DailyPlanPage = () => {
 				style={{
 					marginTop: '1rem',
 					borderTop: '1px dashed var(--color-border)',
-									  paddingTop: '0.75rem'
+					paddingTop: '0.75rem'
 				}}
 				>
 				<div style={{ fontWeight: 600, marginBottom: '0.4rem', fontSize: '0.9rem' }}>
