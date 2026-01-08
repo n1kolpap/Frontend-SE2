@@ -22,7 +22,7 @@ const Tabs = ({ items, activeKey, onChange }) => {
 				fontSize: '0.8rem',
 				background:
 				activeKey === item.key ? 'var(--color-primary)' : 'var(--color-primary-soft)',
-							  color: activeKey === item.key ? '#fff' : 'var(--color-primary-dark)'
+				color: activeKey === item.key ? '#fff' : 'var(--color-primary-dark)'
 			}}
 			>
 			{item.label}

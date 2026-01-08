@@ -107,7 +107,7 @@ const DailyPlanDayCard = ({ tripId, day, onRefresh }) => {
 					gap: '0.5rem',
 					padding: '0.5rem 0.4rem',
 					borderBottom: '1px dashed var(--color-border)',
-											   alignItems: 'center'
+					alignItems: 'center'
 				}}
 				>
 				<div style={{ flex: 1 }}>
@@ -170,8 +170,8 @@ const DailyPlanDayCard = ({ tripId, day, onRefresh }) => {
 					border: 'none',
 					background: 'transparent',
 					color: 'var(--color-danger)',
-											   fontSize: '0.75rem',
-											   cursor: 'pointer'
+					fontSize: '0.75rem',
+					cursor: 'pointer'
 				}}
 				>
 				Delete
@@ -185,7 +185,7 @@ const DailyPlanDayCard = ({ tripId, day, onRefresh }) => {
 			style={{
 				fontSize: '0.85rem',
 				color: 'var(--color-text-muted)',
-			 marginBottom: '0.75rem'
+			 	marginBottom: '0.75rem'
 			}}
 			>
 			No activities planned yet. Start by adding one.
