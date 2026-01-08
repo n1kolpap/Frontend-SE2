@@ -185,7 +185,7 @@ const DailyPlanDayCard = ({ tripId, day, onRefresh }) => {
 			style={{
 				fontSize: '0.85rem',
 				color: 'var(--color-text-muted)',
-			 	marginBottom: '0.75rem'
+				marginBottom: '0.75rem'
 			}}
 			>
 			No activities planned yet. Start by adding one.
