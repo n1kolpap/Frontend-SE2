@@ -33,11 +33,11 @@ const SuggestedActivitiesModal = ({ open, onClose, destination, onAdd }) => {
 			style={{
 				borderRadius: '0.75rem',
 				border: '1px dashed var(--color-border)',
-									  padding: '0.6rem 0.75rem',
-									  display: 'flex',
-									  justifyContent: 'space-between',
-									  gap: '0.5rem',
-									  alignItems: 'center'
+				padding: '0.6rem 0.75rem',
+				display: 'flex',
+				justifyContent: 'space-between',
+				gap: '0.5rem',
+				alignItems: 'center'
 			}}
 			>
 			<div>
