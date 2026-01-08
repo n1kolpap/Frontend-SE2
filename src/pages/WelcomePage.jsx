@@ -11,8 +11,8 @@ const WelcomePage = () => {
 		<div
 		style={{
 			fontSize: '2rem',
-		 fontWeight: 800,
-		 marginBottom: '0.75rem'
+		 	fontWeight: 800,
+		 	marginBottom: '0.75rem'
 		}}
 		>
 		Unlock the world with <span style={{ color: 'var(--color-primary)' }}>TripTrail</span>
