@@ -38,7 +38,7 @@ const LoginPage = () => {
 				}
 				const data = await login({
 					username: form.username.trim(),
-										 password: form.password
+					password: form.password
 				});
 				const user = data?.data?.user;
 				const token = data?.data?.token;
@@ -56,8 +56,8 @@ const LoginPage = () => {
 				}
 				await signUp({
 					username: form.username.trim(),
-							 password: form.password,
-							 email: form.email.trim()
+					password: form.password,
+					email: form.email.trim()
 				});
 				setMode('login');
 				setServerError('Account created. You can log in now.');
@@ -93,7 +93,7 @@ const LoginPage = () => {
 		cursor: 'pointer',
 		background:
 		mode === 'login' ? 'var(--color-primary)' : 'var(--color-primary-soft)',
-			color: mode === 'login' ? '#fff' : 'var(--color-primary-dark)'
+		color: mode === 'login' ? '#fff' : 'var(--color-primary-dark)'
 	}}
 	>
 	Log in
