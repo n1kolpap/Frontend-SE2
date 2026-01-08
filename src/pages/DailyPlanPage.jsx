@@ -72,7 +72,7 @@ const DailyPlanPage = () => {
 
 	const activeDay = dailyPlans.find((d) => d.date === activeDate) || dailyPlans[0];
 
-	const handleAddSuggestion = async (activity) => {
+	const handleAddSuggestion = async (_) => {
 		if (!activeDay) return;
 		// We'll let the day card handle actual add, so here we just open the form
 		// or pass suggestion down via a more complex mechanism.
