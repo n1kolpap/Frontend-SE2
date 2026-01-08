@@ -122,11 +122,11 @@ const LoginPage = () => {
 			marginBottom: '0.75rem',
 			fontSize: '0.8rem',
 			color: serverError.includes('created') ? 'var(--color-success)' : 'var(--color-danger)',
-					 backgroundColor: serverError.includes('created')
-					 ? '#dcfce7'
-					 : 'var(--color-danger-soft)',
-					 padding: '0.4rem 0.6rem',
-					 borderRadius: '0.75rem'
+			backgroundColor: serverError.includes('created')
+			? '#dcfce7'
+			: 'var(--color-danger-soft)',
+			padding: '0.4rem 0.6rem',
+			borderRadius: '0.75rem'
 		}}
 		>
 		{serverError}
