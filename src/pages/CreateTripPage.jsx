@@ -177,11 +177,11 @@ const CreateTripPage = () => {
 		value={form.purpose}
 		onChange={handleChange('purpose')}
 		style={{
-		 width: '100%',
-		 padding: '0.55rem 0.75rem',
-		 borderRadius: '0.75rem',
-		 border: '1px solid var(--color-border)',
-		 fontSize: '0.9rem'
+			width: '100%',
+			padding: '0.55rem 0.75rem',
+			borderRadius: '0.75rem',
+			border: '1px solid var(--color-border)',
+			fontSize: '0.9rem',
 		}}
 		>
 		<option value="">Select purpose</option>
