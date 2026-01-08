@@ -133,6 +133,7 @@ triptrail-frontend/
     │   ├── tripApi.js        # Trip plan endpoints
     │   └── dailyPlanApi.js   # Daily plan & activities endpoints
     ├── components/
+    │   ├── PageSubtitleAndError.jsx  # Renders a subtitle and an optional error message
     │   ├── common/           # Generic UI components (Button, Input, Card, Modal, Tabs, Spinner)
     │   ├── layout/           # Shell pieces (Header, BottomNav)
     │   └── trip/             # Trip-specific components (TripCard, DailyPlanDayCard, SuggestedActivitiesModal)
