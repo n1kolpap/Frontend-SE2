@@ -7,6 +7,7 @@ import { useTrip } from '../hooks/useTrip';
 import { createTripPlan } from '../api/tripApi';
 import { validateTrip } from '../utils/validators';
 import { tripPurposes, interestOptions } from '../utils/constants';
+import PageSubtitleAndError from '../components/PageSubtitleAndError';
 
 const CreateTripPage = () => {
 	const { user } = useAuth();
@@ -93,25 +94,11 @@ const CreateTripPage = () => {
 	return (
 		<div className="main-card">
 		<h1 className="page-title">Create a new trip plan</h1>
-		<p className="page-subtitle">
-		Provide a few details about your trip. TripTrail will generate a day-by-day plan that you
-		can fully edit later.
-		</p>
 
-		{serverError && (
-			<div
-			style={{
-				marginBottom: '0.75rem',
-				fontSize: '0.8rem',
-				color: 'var(--color-danger)',
-				backgroundColor: 'var(--color-danger-soft)',
-				padding: '0.4rem 0.6rem',
-				borderRadius: '0.75rem',
-			}}
-			>
-			{serverError}
-			</div>
-		)}
+		<PageSubtitleAndError
+		subtitle="Provide a few details about your trip. TripTrail will generate a day-by-day plan that you can fully edit later."
+		serverError={serverError}
+		/>
 
 		<form onSubmit={handleSubmit}>
 		<div className="form-grid">
